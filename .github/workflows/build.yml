@@ -16,6 +16,6 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: "1.14" # The Go version to download (if necessary) and use.
-        run: |
+      - run: |
           go version
           go build -v soundcloud-cli cmd/main.go
