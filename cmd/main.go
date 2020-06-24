@@ -20,12 +20,12 @@ func main() {
 		log.Println(BuildVersion)
 		os.Exit(0)
 	}
-	if flags.TrackURL == "" {
-		log.Fatal("trackURL must be provided")
+	if flags.TrackID == "" {
+		log.Fatal("trackID must be provided")
 	}
-	clientID, err := soundcloud.GetClientID()
+	track, err := soundcloud.GetStreamURL(flags.TrackID)
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Println(clientID)
+	log.Println(track.Title)
 }
