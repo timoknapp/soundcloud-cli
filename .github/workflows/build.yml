@@ -1,0 +1,19 @@
+on:
+  push:
+    branches:
+      - master
+
+name: SoundCloud-CLI
+jobs:
+  build:
+    name: Prepare
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-go@v2
+        with:
+          go-version: "1.14" # The Go version to download (if necessary) and use.
+      - run: go version
+
+      - name: Build
+      - run: go build -v soundcloud-cli cmd/main.go
