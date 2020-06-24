@@ -14,6 +14,8 @@ import (
 var soundCloudHost = "https://soundcloud.com"
 var soundCloudAPIHost = "https://api-v2.soundcloud.com"
 
+var ClientID = ""
+
 // Track represents the track from SoundCloud
 type Track struct {
 	Title string `json:"title"`
@@ -37,13 +39,17 @@ type format struct {
 	MimeType string `json:"mime_type"`
 }
 
-// GetStreamURL returns the streamURL of SoundCloud track
-func GetStreamURL(trackID string) (Track, error) {
-	clientID, err := getClientID()
+type mediaURL struct {
+	URL string `json:"url"`
+}
+
+// GetTrack returns the streamURL of SoundCloud track
+func GetTrack(trackID string) (Track, error) {
+	_, err := getClientID()
 	if err != nil {
 		return Track{}, err
 	}
-	body, err := fetchHTTPBody(soundCloudAPIHost + "/tracks/" + trackID + "?client_id=" + clientID)
+	body, err := fetchHTTPBody(soundCloudAPIHost + "/tracks/" + trackID + "?client_id=" + ClientID)
 	if err != nil {
 		return Track{}, err
 	}
@@ -52,6 +58,37 @@ func GetStreamURL(trackID string) (Track, error) {
 		return Track{}, err
 	}
 	return trackResponse, nil
+}
+
+func getTranscodingByQuality(track Track, quality string) (transcoding, error) {
+	errorTranscodingDoesNotExist := errors.New("soundcloud: desired quality does not exist")
+	for _, transcodingType := range track.Media.Transcodings {
+		if transcodingType.Format.Protocol == quality {
+			return transcodingType, nil
+		}
+	}
+	return transcoding{}, errorTranscodingDoesNotExist
+}
+
+// GetMediaURL returns the mediaURL of a track
+func GetMediaURL(track Track, quality string) (string, error) {
+	_, err := getClientID()
+	if err != nil {
+		return "", err
+	}
+	trackInQuality, err := getTranscodingByQuality(track, quality)
+	if err != nil {
+		return "", err
+	}
+	body, err := fetchHTTPBody(trackInQuality.URL + "?client_id=" + ClientID)
+	if err != nil {
+		return "", err
+	}
+	var mediaResponse mediaURL
+	if err = json.Unmarshal(body, &mediaResponse); err != nil {
+		return "", err
+	}
+	return mediaResponse.URL, nil
 }
 
 func getClientID() (string, error) {
@@ -76,7 +113,8 @@ func getClientID() (string, error) {
 		for _, match := range matches {
 			s := strings.TrimPrefix(match, "client_id:")
 			t := strings.Replace(s, "\"", "", -1)
-			return t, nil
+			ClientID = t
+			return ClientID, nil
 		}
 	}
 	return "", err

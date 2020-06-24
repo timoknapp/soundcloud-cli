@@ -23,9 +23,15 @@ func main() {
 	if flags.TrackID == "" {
 		log.Fatal("trackID must be provided")
 	}
-	track, err := soundcloud.GetStreamURL(flags.TrackID)
+	track, err := soundcloud.GetTrack(flags.TrackID)
 	if err != nil {
 		log.Fatal(err)
 	}
 	log.Println(track.Title)
+	log.Println(flags.DownloadQuality)
+	url, err := soundcloud.GetMediaURL(track, flags.DownloadQuality)
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Println(url)
 }

@@ -16,7 +16,7 @@ type Flag struct {
 func Read() (Flag, error) {
 	trackID := flag.String("trackID", "", "the SoundCloud track ID you want to download")
 	downloadPath := flag.String("downloadPath", "download", "the path you want to download the tracks to")
-	downloadQuality := flag.String("downloadQuality", "mp3", "the quality of the music files (mp3/flac)")
+	downloadQuality := flag.String("downloadQuality", "progressive", "the quality of the music files (progressive/hls)")
 	version := flag.Bool("version", false, "prints current version")
 
 	flag.Parse()
