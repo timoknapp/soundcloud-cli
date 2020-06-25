@@ -27,6 +27,11 @@ Usage of ./sc-cli:
 ./sc-cli -trackID=${TRACK_ID}
 ```
 
+## Planned Features
+
+- Add ID3 Tags
+- Support multiple tracks download
+
 
 ## Contribution
 
