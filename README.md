@@ -1,4 +1,4 @@
-# soundcloud-cli
+# 🔊☁️ soundcloud-cli
 Simple CLI to fetch the SoundCloud streams
 
 ## Getting started
