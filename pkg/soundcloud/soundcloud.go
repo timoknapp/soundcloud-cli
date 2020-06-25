@@ -14,12 +14,14 @@ import (
 var soundCloudHost = "https://soundcloud.com"
 var soundCloudAPIHost = "https://api-v2.soundcloud.com"
 
+// ClientID for SoundCloud
 var ClientID = ""
 
 // Track represents the track from SoundCloud
 type Track struct {
-	Title string `json:"title"`
-	Media media  `json:"media"`
+	Title    string `json:"title"`
+	Media    media  `json:"media"`
+	MediaURL string
 }
 
 type media struct {
@@ -44,7 +46,7 @@ type mediaURL struct {
 }
 
 // GetTrack returns the streamURL of SoundCloud track
-func GetTrack(trackID string) (Track, error) {
+func GetTrack(trackID string, quality string) (Track, error) {
 	_, err := getClientID()
 	if err != nil {
 		return Track{}, err
@@ -57,6 +59,11 @@ func GetTrack(trackID string) (Track, error) {
 	if err = json.Unmarshal(body, &trackResponse); err != nil {
 		return Track{}, err
 	}
+	mediaURL, err := getMediaURL(trackResponse, getQualityByFileFormat(quality))
+	if err != nil {
+		return Track{}, err
+	}
+	trackResponse.MediaURL = mediaURL
 	return trackResponse, nil
 }
 
@@ -70,8 +77,7 @@ func getTranscodingByQuality(track Track, quality string) (transcoding, error) {
 	return transcoding{}, errorTranscodingDoesNotExist
 }
 
-// GetMediaURL returns the mediaURL of a track
-func GetMediaURL(track Track, quality string) (string, error) {
+func getMediaURL(track Track, quality string) (string, error) {
 	_, err := getClientID()
 	if err != nil {
 		return "", err
@@ -92,29 +98,36 @@ func GetMediaURL(track Track, quality string) (string, error) {
 }
 
 func getClientID() (string, error) {
+	if ClientID != "" {
+		return ClientID, nil
+	}
 	body, err := fetchHTTPBody(soundCloudHost + "/mt-marcy/cold-nights")
 	if err != nil {
 		return "", err
 	}
-	for _, prefix := range []string{"49", "48"} {
-		scriptURL, err := extractScriptURL(body, prefix)
-		if err != nil {
-			return "", err
-		}
-		script, err := fetchHTTPBody(scriptURL)
-		if err != nil {
-			return "", err
-		}
-		var clientID = regexp.MustCompile(`client_id:+\"[a-zA-Z0-9]+\"`)
-		matches := clientID.FindAllString(string(script), -1)
-		if len(matches) == 0 {
-			continue
-		}
-		for _, match := range matches {
-			s := strings.TrimPrefix(match, "client_id:")
-			t := strings.Replace(s, "\"", "", -1)
-			ClientID = t
-			return ClientID, nil
+	parsedHTML := soup.HTMLParse(string(body))
+	scriptElements := parsedHTML.FindAll("script")
+	if len(scriptElements) == 0 {
+		return "", errors.New("soundcloud: clientID could not be parsed")
+	}
+	for _, element := range scriptElements {
+		if val, exists := element.Attrs()["src"]; exists {
+			script, err := fetchHTTPBody(val)
+			if err != nil {
+				return "", err
+			}
+			var clientID = regexp.MustCompile(`client_id:+\"[a-zA-Z0-9]+\"`)
+			matches := clientID.FindAllString(string(script), -1)
+			if len(matches) == 0 {
+				continue
+			}
+			for _, match := range matches {
+				s := strings.TrimPrefix(match, "client_id:")
+				t := strings.Replace(s, "\"", "", -1)
+				ClientID = t
+				// log.Println("ClientID: " + ClientID)
+				return ClientID, nil
+			}
 		}
 	}
 	return "", err
@@ -148,4 +161,13 @@ func extractScriptURL(html []byte, prefix string) (string, error) {
 		}
 	}
 	return "", errorClientIDCouldNotBeParsed
+}
+
+func getQualityByFileFormat(format string) string {
+	if format == "mp3" {
+		return "progressive"
+	} else if format == "ogg" {
+		return "hls"
+	}
+	return "progressive"
 }
