@@ -30,6 +30,7 @@ Usage of ./sc-cli:
 ## Planned Features
 
 - Add ID3 Tags
+- Extend CICD pipeline to build multiple architectures
 - Support multiple tracks download
 
 
