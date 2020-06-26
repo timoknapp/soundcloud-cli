@@ -17,10 +17,28 @@ jobs:
         with:
           go-version: "1.14" # The Go version to download (if necessary) and use.
       - run: go version
-      - run: go run cmd/main.go --trackID="305237308"
-      # - run: go build -v soundcloud-cli cmd/main.go
-      # - name: Upload artifact
-      #   uses: actions/upload-artifact@v1
-      #   with:
-      #     name: SoundCloud-CLI
-      #     path: SoundCloud-CLI
+      # - run: go run cmd/main.go --trackID="305237308"
+      - run: make build-linux
+      - name: Upload artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: sc-cli-linux
+          path: sc-cli
+      - run: make build-mac
+      - name: Upload artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: sc-cli-mac
+          path: sc-cli
+      - run: make build-windows
+      - name: Upload artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: sc-cli-win
+          path: sc-cli.exe
+      - run: make build-linux-arm
+      - name: Upload artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: sc-cli-rpi
+          path: sc-cli
