@@ -4,8 +4,20 @@ Simple CLI to fetch the SoundCloud streams
 ## Getting started
 
 ### Build
+You can either build it yourself or just download the latest build from [here](https://github.com/timoknapp/soundcloud-cli/actions?query=workflow%3ASoundCloud-CLI). If you want build it yourself, you can use the Makefile with you desired architeture:
+
 ```
-go build -v -o sc-cli cmd/main.go
+# build for linux
+make build-linux
+
+# build for Raspberry
+make build-linux-arm
+
+# build for Mac
+make build-mac
+
+# build for Windows
+make build-windows
 ```
 
 ### Info
