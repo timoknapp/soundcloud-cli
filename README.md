@@ -39,10 +39,13 @@ Usage of ./sc-cli:
 ./sc-cli -trackID=${TRACK_ID}
 ```
 
+## Features
+
+- ID3 Tags
+- Support multiple system-architectures
+
 ## Planned Features
 
-- Add ID3 Tags
-- Extend CICD pipeline to build multiple architectures
 - Support multiple tracks download
 
 
