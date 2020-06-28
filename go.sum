@@ -2,6 +2,8 @@ github.com/VividCortex/ewma v1.1.1 h1:MnEK4VOv6n0RSY4vtRe3h11qjxL3+t0B8yOL8iMXdc
 github.com/VividCortex/ewma v1.1.1/go.mod h1:2Tkkvm3sRDVXaiyucHiACn4cqf7DpdyLvmxzcbUokwA=
 github.com/anaskhan96/soup v1.1.1 h1:Duux/0htS2Va7XLJ9qIakCSey790hg9OFRm2FwlMTy0=
 github.com/anaskhan96/soup v1.1.1/go.mod h1:pT5vs4HXDwA5y4KQCsKvnkpQd3D+joP7IqpiGskfWW0=
+github.com/bogem/id3v2 v1.2.0 h1:hKDF+F1gOgQ5r1QmBCEZUk4MveJbKxCeIDSBU7CQ4oI=
+github.com/bogem/id3v2 v1.2.0/go.mod h1:t78PK5AQ56Q47kizpYiV6gtjj3jfxlz87oFpty8DYs8=
 github.com/cheggaaa/pb v1.0.28 h1:kWGpdAcSp3MxMU9CCHOwz/8V0kCHN4+9yQm2MzWuI98=
 github.com/cheggaaa/pb v2.0.7+incompatible h1:gLKifR1UkZ/kLkda5gC0K6c8g+jU2sINPtBeOiNlMhU=
 github.com/cheggaaa/pb/v3 v3.0.4 h1:QZEPYOj2ix6d5oEg63fbHmpolrnNiwjUsk+h74Yt4bM=
@@ -25,3 +27,6 @@ golang.org/x/sys v0.0.0-20191128015809-6d18c012aee9/go.mod h1:h1NjWce9XRLGQEsW7w
 golang.org/x/sys v0.0.0-20200323222414-85ca7c5b95cd h1:xhmwyvizuTgC2qz7ZlMluP20uW+C3Rm0FD/WLDX8884=
 golang.org/x/sys v0.0.0-20200323222414-85ca7c5b95cd/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
 golang.org/x/text v0.3.0/go.mod h1:NqM8EUOU14njkJ3fqMW+pc6Ldnwhi/IjpwHt7yyuwOQ=
+golang.org/x/text v0.3.2 h1:tW2bmiBqwgJj/UpqtC8EpXEZVYOwU0yG4iWbprSVAcs=
+golang.org/x/text v0.3.2/go.mod h1:bEr9sfX3Q8Zfm5fL9x+3itogRgK3+ptLWKqgva+5dAk=
+golang.org/x/tools v0.0.0-20180917221912-90fa682c2a6e/go.mod h1:n7NCudcB/nEzxVGmLbDWY5pfWTLqBcC2KZ6jyYvM4mQ=

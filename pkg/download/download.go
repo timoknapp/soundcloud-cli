@@ -7,8 +7,10 @@ import (
 	"regexp"
 
 	"github.com/timoknapp/soundcloud-cli/pkg/soundcloud"
+	"github.com/timoknapp/soundcloud-cli/pkg/tag"
 )
 
+// Start will start the download process
 func Start(downloadPath, format string, track soundcloud.Track) error {
 
 	if _, err := os.Stat(downloadPath); os.IsNotExist(err) {
@@ -35,9 +37,9 @@ func Start(downloadPath, format string, track soundcloud.Track) error {
 		return err
 	}
 	//todo add more informations
-	// err = tag.AddTags(fileToWrite, fileName, track)
-	// if err != nil {
-	// 	return err
-	// }
+	err = tag.AddTags(fileToWrite, fileName, track)
+	if err != nil {
+		return err
+	}
 	return nil
 }
