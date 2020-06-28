@@ -146,23 +146,6 @@ func fetchHTTPBody(url string) ([]byte, error) {
 	return html, nil
 }
 
-func extractScriptURL(html []byte, prefix string) (string, error) {
-	errorClientIDCouldNotBeParsed := errors.New("soundcloud: clientID could not be parsed")
-	parsedHTML := soup.HTMLParse(string(html))
-	scriptElements := parsedHTML.FindAll("script")
-	if len(scriptElements) == 0 {
-		return "", errorClientIDCouldNotBeParsed
-	}
-	for _, element := range scriptElements {
-		if val, exists := element.Attrs()["src"]; exists {
-			if strings.Contains(val, prefix+"-") {
-				return val, nil
-			}
-		}
-	}
-	return "", errorClientIDCouldNotBeParsed
-}
-
 func getQualityByFileFormat(format string) string {
 	if format == "mp3" {
 		return "progressive"
