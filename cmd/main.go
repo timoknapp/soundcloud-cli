@@ -23,8 +23,8 @@ func main() {
 		log.Println(BuildVersion)
 		os.Exit(0)
 	}
-	if flags.TrackID == "" {
-		log.Fatal("trackID must be provided")
+	if flags.TrackID == "" || flags.TrackPath == "" {
+		log.Fatal("trackID or trackPath must be provided")
 	}
 	track, err := soundcloud.GetTrack(flags.TrackID, flags.DownloadQuality)
 	if err != nil {
