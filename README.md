@@ -29,7 +29,9 @@ Usage of ./sc-cli:
   -downloadQuality string
     	the quality of the music files (mp3/ogg) (default "mp3")
   -trackID string
-    	the SoundCloud track ID you want to download
+    	the SoundCloud track ID
+  -trackURL string
+    	the SoundCloud track url, either with the hostname or without
   -version
     	prints current version
 ```

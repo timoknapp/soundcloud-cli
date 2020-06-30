@@ -6,7 +6,7 @@ import (
 
 // Flag represents the available flags
 type Flag struct {
-	TrackPath       string
+	TrackURL        string
 	TrackID         string
 	DownloadPath    string
 	DownloadQuality string
@@ -15,8 +15,8 @@ type Flag struct {
 
 // Read returns the set flags
 func Read() (Flag, error) {
-	trackPath := flag.String("trackPath", "", "the SoundCloud track url, eihter with the hostname or without")
-	trackID := flag.String("trackID", "", "the SoundCloud track ID you want to download")
+	trackURL := flag.String("trackURL", "", "the SoundCloud track url, either with the hostname or without")
+	trackID := flag.String("trackID", "", "the SoundCloud track ID")
 	downloadPath := flag.String("downloadPath", "download", "the path you want to download the tracks to")
 	downloadQuality := flag.String("downloadQuality", "mp3", "the quality of the music files (mp3/ogg)")
 	version := flag.Bool("version", false, "prints current version")
@@ -24,7 +24,7 @@ func Read() (Flag, error) {
 	flag.Parse()
 
 	return Flag{
-		TrackPath:       *trackPath,
+		TrackURL:        *trackURL,
 		TrackID:         *trackID,
 		DownloadPath:    *downloadPath,
 		DownloadQuality: *downloadQuality,
