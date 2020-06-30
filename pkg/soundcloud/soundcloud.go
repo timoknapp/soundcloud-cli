@@ -76,6 +76,36 @@ func GetTrack(trackID string, quality string) (Track, error) {
 	return trackResponse, nil
 }
 
+func GetTrackIDByPath(trackPath string) (string, error) {
+	//TODO check if path starts with /
+	body, err := fetchHTTPBody(soundCloudHost + trackPath)
+	if err != nil {
+		return "", err
+	}
+	parsedHTML := soup.HTMLParse(string(body))
+	linkElements := parsedHTML.FindAll("link")
+	if len(linkElements) == 0 {
+		return "", errors.New("soundcloud: trackID could not be parsed")
+	}
+	for _, element := range linkElements {
+		if _, exists := element.Attrs()["rel"]; exists {
+			// println(val)
+			if val, exists := element.Attrs()["href"]; exists {
+				// println(val)
+				s := strings.Split(val, ":")
+				if len(s) == 3 {
+					if s[0] == "android-app" || s[0] == "ios-app" {
+						trackID := s[2]
+						// println(trackID)
+						return trackID, nil
+					}
+				}
+			}
+		}
+	}
+	return "", err
+}
+
 func getTranscodingByQuality(track Track, quality string) (transcoding, error) {
 	errorTranscodingDoesNotExist := errors.New("soundcloud: desired quality does not exist")
 	for _, transcodingType := range track.Media.Transcodings {

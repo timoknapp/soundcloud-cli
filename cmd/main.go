@@ -23,10 +23,13 @@ func main() {
 		log.Println(BuildVersion)
 		os.Exit(0)
 	}
-	if flags.TrackID == "" || flags.TrackPath == "" {
+	if flags.TrackID == "" && flags.TrackPath == "" {
 		log.Fatal("trackID or trackPath must be provided")
 	}
-	track, err := soundcloud.GetTrack(flags.TrackID, flags.DownloadQuality)
+	trackID, err := soundcloud.GetTrackIDByPath(flags.TrackPath)
+	println(trackID)
+	//TODO check if trackPath starts with or consists even of hostname
+	track, err := soundcloud.GetTrack(trackID, flags.DownloadQuality)
 	if err != nil {
 		log.Fatal(err)
 	}
