@@ -37,10 +37,15 @@ Usage of ./sc-cli:
 ```
 
 ### Run
+Either by track ID:
 ```
-./sc-cli -trackID=${TRACK_ID}
+./sc-cli -trackID="645167814"
 ```
 
+Or by track URL:
+```
+./sc-cli -trackURL="https://soundcloud.com/bonjourben/bonjour-ben-tanzwuste-fusion-festival-2019"
+```
 ## Features
 
 - ID3 Tags
