@@ -76,9 +76,22 @@ func GetTrack(trackID string, quality string) (Track, error) {
 	return trackResponse, nil
 }
 
+// GetTrackIDByPath retrieves the trackID of a SoundCloud track by its URL or path
 func GetTrackIDByPath(trackPath string) (string, error) {
-	//TODO check if path starts with /
-	body, err := fetchHTTPBody(soundCloudHost + trackPath)
+	if strings.HasPrefix(trackPath, soundCloudHost) {
+		// fetchBody with trackPath
+		return getTrackID(trackPath)
+	} else if strings.HasPrefix(trackPath, "/") {
+		// fetchBody with host + trackpath
+		return getTrackID(soundCloudHost + trackPath)
+	} else {
+		// fetchBody with host + "/" + trackpath
+		return getTrackID(soundCloudHost + "/" + trackPath)
+	}
+}
+
+func getTrackID(trackURL string) (string, error) {
+	body, err := fetchHTTPBody(trackURL)
 	if err != nil {
 		return "", err
 	}

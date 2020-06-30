@@ -28,10 +28,8 @@ func main() {
 	}
 	trackID := flags.TrackID
 	if flags.TrackPath != "" {
-		//TODO check if trackPath starts with or consists even of hostname
 		trackID, err = soundcloud.GetTrackIDByPath(flags.TrackPath)
 	}
-	println(trackID)
 	track, err := soundcloud.GetTrack(trackID, flags.DownloadQuality)
 	if err != nil {
 		log.Fatal(err)
