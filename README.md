@@ -53,7 +53,8 @@ Or by track URL:
 
 ## Planned Features
 
-- Support multiple tracks download
+- Support multiple tracks download (e.g. by playlist URL)
+- Search tracks (shows results, e.g. ID, URL, etc.)
 
 
 ## Contribution
