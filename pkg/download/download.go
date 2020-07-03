@@ -3,15 +3,17 @@ package download
 import (
 	"errors"
 	"io/ioutil"
+	"log"
 	"os"
+	"path/filepath"
 	"regexp"
+	"time"
 
 	"github.com/timoknapp/soundcloud-cli/pkg/soundcloud"
 	"github.com/timoknapp/soundcloud-cli/pkg/tag"
 )
 
-// Start will start the download process
-func Start(downloadPath, format string, track soundcloud.Track) error {
+func start(downloadPath, format string, track soundcloud.Track) error {
 
 	if _, err := os.Stat(downloadPath); os.IsNotExist(err) {
 		os.Mkdir(downloadPath, os.ModePerm)
@@ -42,4 +44,24 @@ func Start(downloadPath, format string, track soundcloud.Track) error {
 		return err
 	}
 	return nil
+}
+
+// Prepare use track and prepare the download
+func Prepare(track soundcloud.Track, dlPath string, quality string) {
+	downloadStartTime := time.Now()
+	absoluteDownloadPath, err := filepath.Abs(dlPath)
+	if err != nil {
+		log.Printf("could not get absolute downloadPath")
+		absoluteDownloadPath = "/"
+	}
+	log.Printf("start downloading track to %v", absoluteDownloadPath)
+	err = start(dlPath, quality, track)
+	if err != nil {
+		log.Println(err)
+	} else {
+		downloadProgress := (float64(1) / float64(1)) * 100
+		log.Printf("%3.f%% finished downloading: %v", downloadProgress, track.Title)
+	}
+	downloadDuration := time.Since(downloadStartTime)
+	log.Printf("downloaded track in %s to %v", downloadDuration.Round(time.Second), absoluteDownloadPath)
 }
