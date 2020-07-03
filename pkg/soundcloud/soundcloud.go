@@ -54,7 +54,7 @@ type mediaURL struct {
 	URL string `json:"url"`
 }
 
-// GetTrack returns the streamURL of SoundCloud track
+// GetTrack returns the SoundCloud track by ID
 func GetTrack(trackID string, quality string) (Track, error) {
 	_, err := getClientID()
 	if err != nil {
