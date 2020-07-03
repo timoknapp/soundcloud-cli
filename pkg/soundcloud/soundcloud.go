@@ -19,6 +19,7 @@ var ClientID = ""
 
 // Track represents the track from SoundCloud
 type Track struct {
+	ID         int    `json:"id"`
 	Title      string `json:"title"`
 	Media      media  `json:"media"`
 	ArtworkURL string `json:"artwork_url"`

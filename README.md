@@ -67,6 +67,8 @@ OPTIONS:
 
 ## Features
 
+- Download tracks by URL or ID
+- Show metadata for a track
 - ID3 Tags
 - Support multiple system-architectures
 

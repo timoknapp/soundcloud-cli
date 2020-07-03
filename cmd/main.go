@@ -71,7 +71,7 @@ func commands() []*cli.Command {
 				if err != nil {
 					log.Fatal(err)
 				}
-				fmt.Printf("Artist:\t\t" + track.Artist.FullName + "\nTitle:\t\t" + track.Title + "\nArtwork-URL:\t" + track.ArtworkURL)
+				fmt.Printf("ID:\t\t" + strconv.Itoa(track.ID) + "\nArtist:\t\t" + track.Artist.FullName + "\nTitle:\t\t" + track.Title + "\nArtwork-URL:\t" + track.ArtworkURL)
 				return nil
 			},
 		},
