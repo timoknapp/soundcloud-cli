@@ -2,7 +2,6 @@ package main
 
 import (
 	"errors"
-	"fmt"
 	"log"
 	"os"
 	"strconv"
@@ -65,16 +64,17 @@ func commands() []*cli.Command {
 				return nil
 			},
 		},
-		{
-			Name:    "meta",
-			Aliases: []string{"m"},
-			Usage:   "Show metadata for a track",
-			Action: func(c *cli.Context) error {
-				m := "meta meta meta"
-				fmt.Println(m)
-				return nil
-			},
-		},
+		//TODO retrieve simple info for track + add search
+		// {
+		// 	Name:    "meta",
+		// 	Aliases: []string{"m"},
+		// 	Usage:   "Show metadata for a track",
+		// 	Action: func(c *cli.Context) error {
+		// 		m := "meta meta meta"
+		// 		fmt.Println(m)
+		// 		return nil
+		// 	},
+		// },
 	}
 	return cmds
 }

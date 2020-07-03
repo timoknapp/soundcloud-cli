@@ -23,29 +23,47 @@ make build-windows
 ### Info
 ```
 ./sc-cli -h
-Usage of ./sc-cli:
-  -downloadPath string
-    	the path you want to download the tracks to (default "download")
-  -downloadQuality string
-    	the quality of the music files (mp3/ogg) (default "mp3")
-  -trackID string
-    	the SoundCloud track ID
-  -trackURL string
-    	the SoundCloud track url, either with the hostname or without
-  -version
-    	prints current version
+NAME:
+   SoundCloud CLI - A simple CLI to interact with tracks on SoundCloud
+
+USAGE:
+   main [global options] command [command options] [arguments...]
+
+VERSION:
+   1.0.0
+
+COMMANDS:
+   download, dl  Download a track
+   help, h       Shows a list of commands or help for one command
+
+GLOBAL OPTIONS:
+   --help, -h     show help (default: false)
+   --version, -v  print the version (default: false)
+
 ```
 
 ### Run
-Either by track ID:
+See how to use:
 ```
-./sc-cli -trackID="645167814"
+./sc-cli download -h
+NAME:
+   main download - Download a track
+
+USAGE:
+   main download [command options] [arguments...]
+
+OPTIONS:
+   --path value     Path where the files will be stored (default: "download")
+   --quality value  Quality of the track (default: "mp3")
+   --help, -h       show help (default: false)
+
+
+# By ID >
+./sc-cli download $TRACK_ID
+# By URL >
+./sc-cli download $TRACK_URL
 ```
 
-Or by track URL:
-```
-./sc-cli -trackURL="https://soundcloud.com/bonjourben/bonjour-ben-tanzwuste-fusion-festival-2019"
-```
 ## Features
 
 - ID3 Tags
