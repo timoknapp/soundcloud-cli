@@ -34,6 +34,7 @@ VERSION:
 
 COMMANDS:
    download, dl  Download a track
+   meta, m       Show metadata for a track
    help, h       Shows a list of commands or help for one command
 
 GLOBAL OPTIONS:
