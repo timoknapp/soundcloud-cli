@@ -75,6 +75,24 @@ func commands() []*cli.Command {
 				return nil
 			},
 		},
+		{
+			Name:    "search",
+			Aliases: []string{"ls"},
+			Usage:   "Search for a tracks",
+			Action: func(c *cli.Context) error {
+				if c.Args().Len() == 0 {
+					log.Fatal(errors.New("No Search term provided"))
+				}
+				input := c.Args().First()
+				tracks, err := soundcloud.SearchTracks(input)
+				if err != nil {
+					log.Fatal(err)
+				}
+				fmt.Println(len(tracks))
+				// fmt.Printf("ID:\t\t" + strconv.Itoa(track.ID) + "\nArtist:\t\t" + track.Artist.FullName + "\nTitle:\t\t" + track.Title + "\nArtwork-URL:\t" + track.ArtworkURL)
+				return nil
+			},
+		},
 	}
 	return cmds
 }

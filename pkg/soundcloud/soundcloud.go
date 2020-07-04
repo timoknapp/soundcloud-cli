@@ -3,6 +3,7 @@ package soundcloud
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"regexp"
@@ -25,6 +26,11 @@ type Track struct {
 	ArtworkURL string `json:"artwork_url"`
 	MediaURL   string
 	Artist     artist `json:"artist"`
+}
+
+type SearchResult struct {
+	Collection   []Track `json:"collection"`
+	TotalResults int     `json:"total_results"`
 }
 
 type artist struct {
@@ -118,6 +124,23 @@ func getTrackID(trackURL string) (string, error) {
 		}
 	}
 	return "", err
+}
+
+func SearchTracks(input string) ([]Track, error) {
+	_, err := getClientID()
+	if err != nil {
+		return []Track{}, err
+	}
+	body, err := fetchHTTPBody(soundCloudAPIHost + "/search/tracks?q=" + input + "&client_id=" + ClientID + "&limit=5&offset=0")
+	if err != nil {
+		return []Track{}, err
+	}
+	var searchResult SearchResult
+	if err = json.Unmarshal(body, &searchResult); err != nil {
+		return []Track{}, err
+	}
+	fmt.Println(searchResult)
+	return searchResult.Collection, nil
 }
 
 func getTranscodingByQuality(track Track, quality string) (transcoding, error) {
