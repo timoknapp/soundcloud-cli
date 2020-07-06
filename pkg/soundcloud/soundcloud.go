@@ -3,13 +3,14 @@ package soundcloud
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 	"regexp"
+	"strconv"
 	"strings"
 
 	"github.com/anaskhan96/soup"
+	"github.com/fatih/color"
 )
 
 var soundCloudHost = "https://soundcloud.com"
@@ -139,8 +140,24 @@ func SearchTracks(input string) ([]Track, error) {
 	if err = json.Unmarshal(body, &searchResult); err != nil {
 		return []Track{}, err
 	}
-	fmt.Println(searchResult)
 	return searchResult.Collection, nil
+}
+
+func GetTrackByInput(input string, quality string) (Track, error) {
+	color.Cyan("\nFetching meta data ...")
+	trackID := input
+	// check if input is trackID (int) otherwise expect url
+	if _, err := strconv.Atoi(input); err != nil {
+		trackID, err = GetTrackIDByURL(input)
+		if err != nil {
+			return Track{}, errors.New("Track could not be found")
+		}
+	}
+	track, err := GetTrack(trackID, quality)
+	if err != nil {
+		return Track{}, err
+	}
+	return track, nil
 }
 
 func getTranscodingByQuality(track Track, quality string) (transcoding, error) {

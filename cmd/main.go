@@ -2,12 +2,11 @@ package main
 
 import (
 	"errors"
-	"fmt"
 	"log"
 	"os"
-	"strconv"
 
 	"github.com/timoknapp/soundcloud-cli/pkg/download"
+	"github.com/timoknapp/soundcloud-cli/pkg/sccli"
 	"github.com/timoknapp/soundcloud-cli/pkg/soundcloud"
 	"github.com/urfave/cli/v2"
 )
@@ -49,7 +48,7 @@ func commands() []*cli.Command {
 				path := c.String("path")
 				quality := c.String("quality")
 				input := c.Args().First()
-				track, err := getTrackByInput(input, quality)
+				track, err := soundcloud.GetTrackByInput(input, quality)
 				if err != nil {
 					log.Fatal(err)
 				}
@@ -57,7 +56,6 @@ func commands() []*cli.Command {
 				return nil
 			},
 		},
-		//TODO retrieve simple info for track + add search
 		{
 			Name:    "meta",
 			Aliases: []string{"m"},
@@ -67,11 +65,11 @@ func commands() []*cli.Command {
 					log.Fatal(errors.New("No track provided"))
 				}
 				input := c.Args().First()
-				track, err := getTrackByInput(input, "mp3")
+				track, err := soundcloud.GetTrackByInput(input, "mp3")
 				if err != nil {
 					log.Fatal(err)
 				}
-				fmt.Printf("ID:\t\t" + strconv.Itoa(track.ID) + "\nArtist:\t\t" + track.Artist.FullName + "\nTitle:\t\t" + track.Title + "\nArtwork-URL:\t" + track.ArtworkURL)
+				sccli.PrintTable([]soundcloud.Track{track})
 				return nil
 			},
 		},
@@ -88,30 +86,12 @@ func commands() []*cli.Command {
 				if err != nil {
 					log.Fatal(err)
 				}
-				fmt.Println(len(tracks))
-				// fmt.Printf("ID:\t\t" + strconv.Itoa(track.ID) + "\nArtist:\t\t" + track.Artist.FullName + "\nTitle:\t\t" + track.Title + "\nArtwork-URL:\t" + track.ArtworkURL)
+				sccli.PrintTable(tracks)
 				return nil
 			},
 		},
 	}
 	return cmds
-}
-
-func getTrackByInput(input string, quality string) (soundcloud.Track, error) {
-	fmt.Println("Fetching meta data ...")
-	trackID := input
-	// check if input is trackID (int) otherwise expect url
-	if _, err := strconv.Atoi(input); err != nil {
-		trackID, err = soundcloud.GetTrackIDByURL(input)
-		if err != nil {
-			return soundcloud.Track{}, errors.New("Track could not be found")
-		}
-	}
-	track, err := soundcloud.GetTrack(trackID, quality)
-	if err != nil {
-		return soundcloud.Track{}, err
-	}
-	return track, nil
 }
 
 func main() {
