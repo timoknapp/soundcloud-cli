@@ -35,6 +35,7 @@ VERSION:
 COMMANDS:
    download, dl  Download a track
    meta, m       Show metadata for a track
+   search, ls    Search for a tracks
    help, h       Shows a list of commands or help for one command
 
 GLOBAL OPTIONS:
@@ -44,7 +45,22 @@ GLOBAL OPTIONS:
 ```
 
 ### Run
-See how to use:
+
+Search:
+```
+./sc-cli ls andhim
+     ID     | ARTIST |             TITLE              |                         ARTWORK-URL                           
+------------+--------+--------------------------------+---------------------------------------------------------------
+  177318577 |        | Elderbrook x Andhim - How Many | https://i1.sndcdn.com/artworks-000133571398-7ytejm-large.jpg  
+            |        | Times                          |                                                               
+  29552513  |        | Theophilus London - Wine &     | https://i1.sndcdn.com/artworks-000034576883-5s9hru-large.jpg  
+            |        | Chocolates (andhim rmx)        |                                                               
+  90830301  |        | Hausch                         | https://i1.sndcdn.com/artworks-y7iXz1VWh3ic-0-large.jpg       
+  112750743 |        | Boy Boy Boy                    | https://i1.sndcdn.com/artworks-FJ0GdILknqpA-0-large.jpg       
+  99537297  |        | andhim live at Fusion Festival | https://i1.sndcdn.com/artworks-000052089664-ruhdt8-large.jpg
+```
+
+Download:
 ```
 ./sc-cli download -h
 NAME:
@@ -68,6 +84,7 @@ OPTIONS:
 ## Features
 
 - Download tracks by URL or ID
+- Search tracks
 - Show metadata for a track
 - ID3 Tags
 - Support multiple system-architectures
@@ -75,7 +92,6 @@ OPTIONS:
 ## Planned Features
 
 - Support multiple tracks download (e.g. by playlist URL)
-- Search tracks (shows results, e.g. ID, URL, etc.)
 
 
 ## Contribution
