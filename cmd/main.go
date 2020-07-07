@@ -4,6 +4,7 @@ import (
 	"errors"
 	"log"
 	"os"
+	"strconv"
 
 	"github.com/timoknapp/soundcloud-cli/pkg/download"
 	"github.com/timoknapp/soundcloud-cli/pkg/sccli"
@@ -77,12 +78,20 @@ func commands() []*cli.Command {
 			Name:    "search",
 			Aliases: []string{"ls"},
 			Usage:   "Search for a tracks",
+			Flags: []cli.Flag{
+				&cli.Int64Flag{
+					Name:  "limit",
+					Value: 5,
+					Usage: "Amount of search results",
+				},
+			},
 			Action: func(c *cli.Context) error {
 				if c.Args().Len() == 0 {
 					log.Fatal(errors.New("No Search term provided"))
 				}
+				limit := strconv.Itoa(c.Int("limit"))
 				input := c.Args().First()
-				tracks, err := soundcloud.SearchTracks(input)
+				tracks, err := soundcloud.SearchTracks(input, limit)
 				if err != nil {
 					log.Fatal(err)
 				}

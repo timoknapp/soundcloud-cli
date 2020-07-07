@@ -127,12 +127,12 @@ func getTrackID(trackURL string) (string, error) {
 	return "", err
 }
 
-func SearchTracks(input string) ([]Track, error) {
+func SearchTracks(input string, limit string) ([]Track, error) {
 	_, err := getClientID()
 	if err != nil {
 		return []Track{}, err
 	}
-	body, err := fetchHTTPBody(soundCloudAPIHost + "/search/tracks?q=" + input + "&client_id=" + ClientID + "&limit=5&offset=0")
+	body, err := fetchHTTPBody(soundCloudAPIHost + "/search/tracks?q=" + input + "&client_id=" + ClientID + "&limit=" + limit + "&offset=0")
 	if err != nil {
 		return []Track{}, err
 	}
