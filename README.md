@@ -48,7 +48,7 @@ GLOBAL OPTIONS:
 
 Search:
 ```
-./sc-cli ls andhim
+./sc-cli ls --limit 5 andhim
      ID     | ARTIST |             TITLE              |                         ARTWORK-URL                           
 ------------+--------+--------------------------------+---------------------------------------------------------------
   177318577 |        | Elderbrook x Andhim - How Many | https://i1.sndcdn.com/artworks-000133571398-7ytejm-large.jpg  
