@@ -21,14 +21,16 @@ var ClientID = ""
 
 // Track represents the track from SoundCloud
 type Track struct {
-	ID         int    `json:"id"`
-	Title      string `json:"title"`
-	Media      media  `json:"media"`
-	ArtworkURL string `json:"artwork_url"`
-	MediaURL   string
-	Artist     artist `json:"artist"`
+	ID           int    `json:"id"`
+	Title        string `json:"title"`
+	Media        media  `json:"media"`
+	ArtworkURL   string `json:"artwork_url"`
+	PermalinkURL string `json:"permalink_url"`
+	MediaURL     string
+	Artist       artist `json:"artist"`
 }
 
+// SearchResult represents the the response when a search is performed
 type SearchResult struct {
 	Collection   []Track `json:"collection"`
 	TotalResults int     `json:"total_results"`
