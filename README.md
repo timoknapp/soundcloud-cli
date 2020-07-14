@@ -22,7 +22,7 @@ make build-windows
 
 ### Info
 ```
-./sc-cli -h
+./sc -h
 NAME:
    SoundCloud CLI - A simple CLI to interact with tracks on SoundCloud
 
@@ -48,7 +48,7 @@ GLOBAL OPTIONS:
 
 Search:
 ```
-./sc-cli ls --limit 5 andhim
+./sc ls --limit 5 andhim
      ID     | ARTIST |             TITLE              |                         ARTWORK-URL                           
 ------------+--------+--------------------------------+---------------------------------------------------------------
   177318577 |        | Elderbrook x Andhim - How Many | https://i1.sndcdn.com/artworks-000133571398-7ytejm-large.jpg  
@@ -62,7 +62,7 @@ Search:
 
 Download:
 ```
-./sc-cli download -h
+./sc download -h
 NAME:
    main download - Download a track
 
@@ -76,9 +76,9 @@ OPTIONS:
 
 
 # By ID >
-./sc-cli download $TRACK_ID
+./sc download $TRACK_ID
 # By URL >
-./sc-cli download $TRACK_URL
+./sc download $TRACK_URL
 ```
 
 ## Features

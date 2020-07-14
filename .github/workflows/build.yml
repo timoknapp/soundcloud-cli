@@ -21,23 +21,23 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v1
         with:
-          name: sc-cli-linux
-          path: sc-cli
+          name: sc-linux
+          path: sc
       - run: make build-mac
       - name: Upload artifact
         uses: actions/upload-artifact@v1
         with:
-          name: sc-cli-mac
-          path: sc-cli
+          name: sc-mac
+          path: sc
       - run: make build-windows
       - name: Upload artifact
         uses: actions/upload-artifact@v1
         with:
-          name: sc-cli-win
-          path: sc-cli.exe
+          name: sc-win
+          path: sc.exe
       - run: make build-linux-arm
       - name: Upload artifact
         uses: actions/upload-artifact@v1
         with:
-          name: sc-cli-rpi
-          path: sc-cli
+          name: sc-rpi
+          path: sc
