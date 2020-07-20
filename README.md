@@ -49,15 +49,15 @@ GLOBAL OPTIONS:
 Search:
 ```
 ./sc ls --limit 5 andhim
-     ID     | ARTIST |             TITLE              |                         ARTWORK-URL                           
-------------+--------+--------------------------------+---------------------------------------------------------------
-  177318577 |        | Elderbrook x Andhim - How Many | https://i1.sndcdn.com/artworks-000133571398-7ytejm-large.jpg  
-            |        | Times                          |                                                               
-  29552513  |        | Theophilus London - Wine &     | https://i1.sndcdn.com/artworks-000034576883-5s9hru-large.jpg  
-            |        | Chocolates (andhim rmx)        |                                                               
-  90830301  |        | Hausch                         | https://i1.sndcdn.com/artworks-y7iXz1VWh3ic-0-large.jpg       
-  112750743 |        | Boy Boy Boy                    | https://i1.sndcdn.com/artworks-FJ0GdILknqpA-0-large.jpg       
-  99537297  |        | andhim live at Fusion Festival | https://i1.sndcdn.com/artworks-000052089664-ruhdt8-large.jpg
+     ID     |             TITLE              |                                URL                                  
+------------+--------------------------------+---------------------------------------------------------------------
+  177318577 | Elderbrook x Andhim - How Many | https://soundcloud.com/andhim/elderbrook-how-many-times-andhim-rmx  
+            | Times                          |                                                                     
+  29552513  | Theophilus London - Wine &     | https://soundcloud.com/andhim/wine-and-chocolate-andhim-rmx         
+            | Chocolates (andhim rmx)        |                                                                     
+  90830301  | Hausch                         | https://soundcloud.com/andhim/andhim-hausch                         
+  112750743 | Boy Boy Boy                    | https://soundcloud.com/andhim/andhim-boy-boy-boy                    
+  99537297  | andhim live at Fusion Festival | https://soundcloud.com/andhim/andhim-live-at-fusion                 
 ```
 
 Download:
