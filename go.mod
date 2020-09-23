@@ -3,7 +3,7 @@ module github.com/timoknapp/soundcloud-cli
 go 1.14
 
 require (
-	github.com/anaskhan96/soup v1.1.1
+	github.com/anaskhan96/soup v1.2.3
 	github.com/bogem/id3v2 v1.2.0
 	github.com/cheggaaa/pb/v3 v3.0.5
 	github.com/fatih/color v1.9.0
