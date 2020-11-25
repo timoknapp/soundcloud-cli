@@ -1,11 +1,17 @@
 ## 1.0.0 (2020-11-25)
 
+#### Bug Fixes
+
+* ci (933161d5)
+
 #### Tests
 
 * **init:** add first simple test (dee0fd00)
 
 #### Chores
 
+* **semrel:** add semamtic-release (83bf7c98)
+* **release:** update changelog (d6db505f)
 * **semrel:** add semamtic-release (2bc95147)
 * **release:** update changelog (bc012ed9)
 * **semrel:** add semamtic-release (17529b25)
