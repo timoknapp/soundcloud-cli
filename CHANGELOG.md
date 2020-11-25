@@ -6,6 +6,8 @@
 
 #### Chores
 
+* **semrel:** add semamtic-release (2bc95147)
+* **release:** update changelog (bc012ed9)
 * **semrel:** add semamtic-release (17529b25)
 * **deps:** update module urfave/cli/v2 to v2.3.0 (8019c7dc)
 * **deps:** update module urfave/cli/v2 to v2.3.0 (3adfa3ae)
