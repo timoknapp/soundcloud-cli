@@ -69,7 +69,6 @@ jobs:
           body: $( echo ${{ steps.semrel.outputs.changelog }} | sed '/^#### Feature/s!\(#### \)!#### 🎁 !' | sed '/^#### Bug/s!\(#### \)!#### 🐞 !' | sed '/^#### Chores/s!\(#### \)!#### 🚧 !' | sed '/^#### CI/s!\(#### \)!#### 🔁 !')
 
       - name: Upload Release Asset linux
-        id: upload-release-asset
         if: steps.semrel.outputs.version != ''
         uses: actions/upload-release-asset@v1
         env:
@@ -81,7 +80,6 @@ jobs:
           asset_content_type: application/x-binary
 
       - name: Upload Release Asset mac
-        id: upload-release-asset
         if: steps.semrel.outputs.version != ''
         uses: actions/upload-release-asset@v1
         env:
@@ -93,7 +91,6 @@ jobs:
           asset_content_type: application/x-binary
 
       - name: Upload Release Asset windows
-        id: upload-release-asset
         if: steps.semrel.outputs.version != ''
         uses: actions/upload-release-asset@v1
         env:
@@ -105,7 +102,6 @@ jobs:
           asset_content_type: application/x-binary
 
       - name: Upload Release Asset RPI
-        id: upload-release-asset
         if: steps.semrel.outputs.version != ''
         uses: actions/upload-release-asset@v1
         env:
