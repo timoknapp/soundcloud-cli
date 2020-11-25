@@ -6,7 +6,7 @@ on:
     branches:
       - master
 
-name: SoundCloud-CLI
+name: Development
 jobs:
   build:
     name: Build & Upload
