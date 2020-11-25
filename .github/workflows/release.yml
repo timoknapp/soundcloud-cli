@@ -51,7 +51,7 @@ jobs:
         run: |
           TAG="v${{steps.semrel.outputs.version}}"
           echo "::set-output name=name::$TAG"
-          NOTES_FORMATTED=$( echo ${{ steps.semrel.outputs.changelog }} | sed '/^#### Feature/s!\(#### \)!#### 🎁 !' | sed '/^#### Bug/s!\(#### \)!#### 🐞 !' | sed '/^#### Chores/s!\(#### \)!#### 🚧 !' | sed '/^#### CI/s!\(#### \)!#### 🔁 !' | sed '/^#### Tests/s!\(#### \)!#### 🔎 !')
+          NOTES_FORMATTED=$(echo "${{ steps.semrel.outputs.changelog }}" | sed '/^#### Feature/s!\(#### \)!#### 🎁 !' | sed '/^#### Bug/s!\(#### \)!#### 🐞 !' | sed '/^#### Chores/s!\(#### \)!#### 🚧 !' | sed '/^#### CI/s!\(#### \)!#### 🔁 !' | sed '/^#### Tests/s!\(#### \)!#### 🔎 !')"
           echo "::set-output name=notes::$NOTES_FORMATTED"
           git push origin :refs/tags/${TAG}
           git tag -fa ${TAG} -m "Release $TAG"
