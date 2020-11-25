@@ -2,6 +2,7 @@
 
 #### Bug Fixes
 
+* notes in releases (286494a7)
 * notes in releases (e1dbdb72)
 * ci (933161d5)
 
@@ -11,6 +12,7 @@
 
 #### Chores
 
+* **release:** update changelog (91b82270)
 * **release:** update changelog (328fb88d)
 * **semrel:** add semamtic-release (83bf7c98)
 * **release:** update changelog (d6db505f)
