@@ -4,7 +4,7 @@ go 1.14
 
 require (
 	github.com/anaskhan96/soup v1.2.5
-	github.com/bogem/id3v2 v1.2.0
+	github.com/bogem/id3v2/v2/v2 v2.1.3
 	github.com/cheggaaa/pb/v3 v3.1.0
 	github.com/fatih/color v1.13.0
 	github.com/olekukonko/tablewriter v0.0.5
