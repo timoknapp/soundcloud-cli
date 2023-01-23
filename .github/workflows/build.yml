@@ -32,6 +32,12 @@ jobs:
         with:
           name: sc-mac
           path: sc-mac
+      - run: make build-mac-arm
+      - name: Upload artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: sc-mac-arm
+          path: sc-mac-arm
       - run: make build-windows
       - name: Upload artifact
         uses: actions/upload-artifact@v1
