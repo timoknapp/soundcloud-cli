@@ -16,6 +16,9 @@ make build-linux-arm
 # build for Mac
 make build-mac
 
+# build for Mac ARM
+make build-mac-arm
+
 # build for Windows
 make build-windows
 ```
