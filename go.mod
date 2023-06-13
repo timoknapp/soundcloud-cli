@@ -9,7 +9,7 @@ require (
 	github.com/fatih/color v1.15.0
 	github.com/olekukonko/tablewriter v0.0.5
 	github.com/stretchr/testify v1.8.4
-	github.com/urfave/cli/v2 v2.25.5
+	github.com/urfave/cli/v2 v2.25.6
 )
 
 require (
