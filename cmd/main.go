@@ -77,7 +77,7 @@ func commands() []*cli.Command {
 		{
 			Name:    "search",
 			Aliases: []string{"ls"},
-			Usage:   "Search for a tracks",
+			Usage:   "Search for a track",
 			Flags: []cli.Flag{
 				&cli.Int64Flag{
 					Name:  "limit",
