@@ -50,3 +50,7 @@ jobs:
         with:
           name: sc-rpi
           path: sc-rpi
+      - name: Test CLI
+        run: |
+          ./sc-linux ls "Fusion"
+
