@@ -8,7 +8,7 @@ require (
 	github.com/cheggaaa/pb/v3 v3.1.5
 	github.com/fatih/color v1.18.0
 	github.com/olekukonko/tablewriter v0.0.5
-	github.com/stretchr/testify v1.9.0
+	github.com/stretchr/testify v1.10.0
 	github.com/urfave/cli/v2 v2.27.5
 )
 
