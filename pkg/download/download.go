@@ -2,7 +2,6 @@ package download
 
 import (
 	"errors"
-	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
@@ -34,7 +33,7 @@ func start(downloadPath, format string, track soundcloud.Track) error {
 	if err != nil {
 		return err
 	}
-	err = ioutil.WriteFile(fileToWrite, downloadedTrack, 0644)
+	err = os.WriteFile(fileToWrite, downloadedTrack, 0644)
 	if err != nil {
 		return err
 	}

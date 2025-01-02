@@ -1,7 +1,7 @@
 package tag
 
 import (
-	"io/ioutil"
+	"io"
 	"net/http"
 
 	"github.com/bogem/id3v2"
@@ -21,7 +21,7 @@ func AddTags(file string, fileName string, track soundcloud.Track) error {
 		if err != nil {
 			return err
 		}
-		trackImage, err = ioutil.ReadAll(resp.Body)
+		trackImage, err = io.ReadAll(resp.Body)
 		if err != nil {
 			return err
 		}

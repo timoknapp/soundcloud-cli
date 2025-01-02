@@ -3,10 +3,10 @@ package soundcloud
 import (
 	"encoding/json"
 	"errors"
-	"io/ioutil"
+	"io"
 	"net/http"
+	"net/url"
 	"regexp"
-	"strconv"
 	"strings"
 
 	"github.com/anaskhan96/soup"
@@ -15,6 +15,7 @@ import (
 
 var soundCloudHost = "https://soundcloud.com"
 var soundCloudAPIHost = "https://api-v2.soundcloud.com"
+var soundCloudResolveApiUrl = "https://api-widget.soundcloud.com/resolve?"
 
 // ClientID for SoundCloud
 var ClientID = ""
@@ -64,8 +65,48 @@ type mediaURL struct {
 	URL string `json:"url"`
 }
 
-// GetTrack returns the SoundCloud track by ID
-func GetTrack(trackID string, quality string) (Track, error) {
+// Resolve the given url: (return info about it).
+func GetTrackInfoAPIUrl(urlx string, clientId string) string {
+	v := url.Values{}
+
+	// setting all the query params
+	v.Set("url", urlx)
+	v.Set("format", "json")
+	v.Set("client_id", clientId)
+
+	encodedUrl := soundCloudResolveApiUrl + v.Encode()
+
+	return encodedUrl
+}
+
+// GetTrack returns the SoundCloud track by API
+func GetTrackByUrl(url string, quality string) (Track, error) {
+	clientID, err := getClientID()
+	if err != nil {
+		return Track{}, err
+	}
+	if clientID == "" {
+		return Track{}, errors.New("soundcloud: clientID could not be retrieved")
+	}
+	apiUrl := GetTrackInfoAPIUrl(url, clientID)
+	body, err := fetchHTTPBody(apiUrl)
+	if err != nil {
+		return Track{}, err
+	}
+	var trackResponse Track
+	if err = json.Unmarshal(body, &trackResponse); err != nil {
+		return Track{}, err
+	}
+	mediaURL, err := getMediaURL(trackResponse, getQualityByFileFormat(quality))
+	if err != nil {
+		return Track{}, err
+	}
+	trackResponse.MediaURL = mediaURL
+	return trackResponse, nil
+}
+
+// GetTrackById returns the SoundCloud track by ID
+func GetTrackById(trackID string, quality string) (Track, error) {
 	_, err := getClientID()
 	if err != nil {
 		return Track{}, err
@@ -148,16 +189,20 @@ func SearchTracks(input string, limit string) ([]Track, error) {
 func GetTrackByInput(input string, quality string) (Track, error) {
 	color.Cyan("\nFetching meta data ...")
 	trackID := input
-	// check if input is trackID (int) otherwise expect url
-	if _, err := strconv.Atoi(input); err != nil {
-		trackID, err = GetTrackIDByURL(input)
+	track := Track{}
+	var err error
+	// check if input is url otherwise expect trackID
+	if matched, _ := regexp.MatchString(`^https?://(www\.)?soundcloud\.com/`, input); matched {
+		track, err = GetTrackByUrl(input, quality)
 		if err != nil {
 			return Track{}, errors.New("Track could not be found")
 		}
-	}
-	track, err := GetTrack(trackID, quality)
-	if err != nil {
-		return Track{}, err
+	} else {
+		track, err = GetTrackById(trackID, quality)
+		if err != nil {
+			return Track{}, err
+		}
+
 	}
 	return track, nil
 }
@@ -205,25 +250,19 @@ func getClientID() (string, error) {
 	if len(scriptElements) == 0 {
 		return "", errors.New("soundcloud: clientID could not be parsed")
 	}
-	for _, element := range scriptElements {
-		if val, exists := element.Attrs()["src"]; exists {
-			script, err := fetchHTTPBody(val)
-			if err != nil {
-				return "", err
-			}
-			var clientID = regexp.MustCompile(`client_id:+\"[a-zA-Z0-9]+\"`)
-			matches := clientID.FindAllString(string(script), -1)
-			if len(matches) == 0 {
-				continue
-			}
-			for _, match := range matches {
-				s := strings.TrimPrefix(match, "client_id:")
-				t := strings.Replace(s, "\"", "", -1)
-				ClientID = t
-				// log.Println("ClientID: " + ClientID)
-				return ClientID, nil
-			}
+	lastElement := scriptElements[len(scriptElements)-1]
+	if val, exists := lastElement.Attrs()["src"]; exists {
+		scriptBody, err := fetchHTTPBody(val)
+		if err != nil {
+			return "", err
 		}
+		var re = regexp.MustCompile(",client_id:\"([^\"]*?.[^\"]*?)\"")
+		matches := re.FindAllStringSubmatch(string(scriptBody), 1)
+		if len(matches) == 0 {
+			return "", errors.New("soundcloud: clientID could not be parsed")
+		}
+		ClientID = matches[0][1]
+		return matches[0][1], nil
 	}
 	return "", err
 }
@@ -234,7 +273,7 @@ func fetchHTTPBody(url string) ([]byte, error) {
 		return []byte(""), err
 	}
 	defer res.Body.Close()
-	html, err := ioutil.ReadAll(res.Body)
+	html, err := io.ReadAll(res.Body)
 	if err != nil {
 		return []byte(""), err
 	}
