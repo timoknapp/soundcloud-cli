@@ -1,6 +1,8 @@
 module github.com/timoknapp/soundcloud-cli
 
-go 1.19
+go 1.21
+
+toolchain go1.23.9
 
 require (
 	github.com/anaskhan96/soup v1.2.5
