@@ -1,6 +1,6 @@
 module github.com/timoknapp/soundcloud-cli
 
-go 1.19
+go 1.22
 
 require (
 	github.com/anaskhan96/soup v1.2.5
@@ -8,13 +8,14 @@ require (
 	github.com/cheggaaa/pb/v3 v3.1.7
 	github.com/fatih/color v1.18.0
 	github.com/olekukonko/tablewriter v0.0.5
-	github.com/stretchr/testify v1.10.0
-	github.com/urfave/cli/v2 v2.27.6
+	github.com/stretchr/testify v1.11.1
+	github.com/urfave/cli/v2 v2.27.7
+	github.com/urfave/cli/v3 v3.11.0
 )
 
 require (
 	github.com/VividCortex/ewma v1.2.0 // indirect
-	github.com/cpuguy83/go-md2man/v2 v2.0.5 // indirect
+	github.com/cpuguy83/go-md2man/v2 v2.0.7 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/mattn/go-colorable v0.1.14 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
