@@ -5,6 +5,7 @@ go 1.19
 require (
 	github.com/anaskhan96/soup v1.2.5
 	github.com/bogem/id3v2 v1.2.0
+	github.com/bogem/id3v2/v2 v2.1.4
 	github.com/cheggaaa/pb/v3 v3.1.7
 	github.com/fatih/color v1.18.0
 	github.com/olekukonko/tablewriter v0.0.5
