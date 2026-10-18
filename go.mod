@@ -5,6 +5,7 @@ go 1.26.0
 require (
 	github.com/anaskhan96/soup v1.2.5
 	github.com/bogem/id3v2 v1.2.0
+	github.com/bogem/id3v2/v2 v2.1.4
 	github.com/cheggaaa/pb/v3 v3.2.1
 	github.com/fatih/color v1.19.0
 	github.com/olekukonko/tablewriter v1.1.5
