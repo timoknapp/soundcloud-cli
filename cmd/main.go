@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"errors"
 	"log"
 	"os"
@@ -9,13 +10,13 @@ import (
 	"github.com/timoknapp/soundcloud-cli/pkg/download"
 	"github.com/timoknapp/soundcloud-cli/pkg/sccli"
 	"github.com/timoknapp/soundcloud-cli/pkg/soundcloud"
-	"github.com/urfave/cli/v2"
+	"github.com/urfave/cli/v3"
 )
 
 // BuildVersion contains SemVer of latest master merge
 var BuildVersion = "development"
 
-var app = cli.NewApp()
+var app = &cli.Command{}
 
 func info() {
 	app.Name = "SoundCloud CLI"
@@ -42,7 +43,7 @@ func commands() []*cli.Command {
 					Usage: "Quality of the track",
 				},
 			},
-			Action: func(c *cli.Context) error {
+			Action: func(ctx context.Context, c *cli.Command) error {
 				if c.Args().Len() == 0 {
 					log.Fatal(errors.New("No track provided"))
 				}
@@ -61,7 +62,7 @@ func commands() []*cli.Command {
 			Name:    "meta",
 			Aliases: []string{"m"},
 			Usage:   "Show metadata for a track",
-			Action: func(c *cli.Context) error {
+			Action: func(ctx context.Context, c *cli.Command) error {
 				if c.Args().Len() == 0 {
 					log.Fatal(errors.New("No track provided"))
 				}
@@ -79,13 +80,13 @@ func commands() []*cli.Command {
 			Aliases: []string{"ls"},
 			Usage:   "Search for tracks",
 			Flags: []cli.Flag{
-				&cli.Int64Flag{
+				&cli.IntFlag{
 					Name:  "limit",
 					Value: 5,
 					Usage: "Amount of search results",
 				},
 			},
-			Action: func(c *cli.Context) error {
+			Action: func(ctx context.Context, c *cli.Command) error {
 				if c.Args().Len() == 0 {
 					log.Fatal(errors.New("No Search term provided"))
 				}
@@ -107,7 +108,7 @@ func main() {
 	info()
 	commands()
 
-	err := app.Run(os.Args)
+	err := app.Run(context.Background(), os.Args)
 	if err != nil {
 		log.Fatal(err)
 	}
